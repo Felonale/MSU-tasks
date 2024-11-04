@@ -17,7 +17,7 @@ int *createTwoDimArray(int sizeA, int sizeB)
     // printf("x place is %d\n", (int)x);
     for (size_t i = 0; i < sizeA; i++)
     {
-        x[i] = (int **)malloc(sizeB * sizeof(int *));
+        x[i] = (int *)malloc(sizeB * sizeof(int *));
     }
     
     return x;
@@ -37,7 +37,39 @@ int randomFillOneDimArray(int *array, int size)
     return 0;
 }
 
+int randomFillTwoDimArray(int *array, int sizeA, int sizeB)
+{
+    for (size_t i = 0; i < sizeA; i++)
+    {
+        for (size_t j = 0; j < sizeB; j++)
+        {
+            // array[i][j] = rand() % 2;
+        }
+        
+    }
+    printTwoDimArray(array, sizeA, sizeB);
+    return 0;
+}
+
+// Print array
+
 int printOneDimArray(int *array, int size)
+{
+    printf("[");
+    for (size_t i = 0; i < size; i++)
+    {
+        printf("%d", array[i]);
+        if (i < size-1)
+        {
+            printf(", ");
+        }
+        
+    }
+    printf("]\n");
+    return 0;
+}
+
+int printTwoDimArray(int *array, int size)
 {
     printf("[");
     for (size_t i = 0; i < size; i++)
@@ -100,7 +132,7 @@ int main()
     printf("Enter array\'s second dimension length (m): ");
     scanf("%d", &m);
 
-    int **array = createTwoDimArray();
+    int **array = createTwoDimArray(n, m);
 }
 
 // int main()

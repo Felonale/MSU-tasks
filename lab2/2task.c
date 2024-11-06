@@ -1,31 +1,57 @@
 #include <stdio.h>
-#include <ctype.h>
+#include <string.h>
+#include <malloc.h>
 
 int main()
 {
-    char str[]  = "h%347dfe3fer3.";
+    //char str[]  = "h%347dfe3fer3.";
+    int size = 1024;
+    char *str = (char*)calloc(size, sizeof(char));
+    // printf("%d", sizeof(str[0]));
+    int quantityofoccur = 0;
+
+    int occursize = 8;
+    int *occur = (int*)calloc(occursize, sizeof(int));
+    int *occurtemp;
+    printf("%d", sizeof(occur));
     printf("Enter your cool string: ");
-    scanf("%s", str);
-    printf("%s\n", str);
-    int j;
-    int digitsamount = 0;
-    int numbersamount = 0;
-    unsigned long strsize = sizeof(str) -1;
-    for (size_t i = 0; i < strsize; i++)
+
+    if (fgets(str, size, stdin))
     {
-        //printf("\n%c", str[i]); //debug thing
-        if (!isdigit(str[i]))
+        str[strcspn(str, "\n")] = 0;
+        printf("Your sentence is \"%s\"\n", str);
+    }
+    
+    printf("First letter is \"%c\"\n", str[0]);
+    
+    for (size_t i = 0; i < size; i++)
+    {
+        if (str[i] == str[0])
         {
-            //printf(" is NOT digit"); //debug thing
-            continue;
-        }
-        j = i;
-        digitsamount++;
-        while (j + 1 <= strsize && isdigit(str[j+1]))
-        {
-            numbersamount++;
-            j++;
+            if (quantityofoccur == 8)
+            {
+                occursize+=8;
+                occurtemp = occur;
+                occur = (int*)calloc(occursize, sizeof(int));
+                for (size_t z = 0; z < occursize-8; z++)
+                {
+                    occur[z] = occurtemp[z];
+                }
+                free(occurtemp);
+            }
+            
+            occur[quantityofoccur] = i+1;
+            quantityofoccur++;
         }
     }
-    printf("Amount of digits is: %d and numbers is: %d", digitsamount, numbersamount);
+    
+    printf("Amount of first letter\'s occurances: %d\n", quantityofoccur);
+    printf("First letter's occurances are in those places:");
+    for (size_t i = 0; i < quantityofoccur; i++)
+    {
+        printf(" %d", occur[i]);
+    }
+    
+    free(occur);
+    free(str);
 }

@@ -13,7 +13,7 @@ int main()
     int occursize = 8;
     int *occur = (int*)calloc(occursize, sizeof(int));
     int *occurtemp;
-    printf("%d", sizeof(occur));
+    // printf("%d", sizeof(occur));
     printf("Enter your cool string: ");
 
     if (fgets(str, size, stdin))
